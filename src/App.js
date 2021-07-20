@@ -1,25 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { Component } from 'react';
+import axios from 'axios';
+import ChampList from './components/ChampList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = { 
+    champs: []
+ }
+
+  async componentDidMount() {
+      const request = await axios.get('http://localhost:3000/api/league/champions');
+      const champs = Object.values(request.data.data);
+      console.log(champs);
+      
+      this.setState({champs});
+  }
+
+  render() { 
+      return ( 
+          <ChampList champs={this.state.champs} />
+      );
+  }
 }
-
+ 
 export default App;
