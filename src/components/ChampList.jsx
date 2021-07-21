@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ChampCard from './ChampCard';
 
 const ChampList = (props) => {
@@ -6,8 +6,8 @@ const ChampList = (props) => {
         <div className="card-container">
             {props.champs.map(champion => {
                 return (
-                    <ChampCard character={champion} />
-                )
+                    <ChampCard key={champion.key} character={champion} onSelect={props.onSelect}/>
+                );
             })}
         </div>
      );

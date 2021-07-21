@@ -1,6 +1,7 @@
 .card-container {
   display: grid;
-  grid-template-columns: 500px 500px 500px;
+  grid-template-columns: repeat(auto-fill, 75px);
+  justify-content: center;
 }
 
 .card-champ {
@@ -15,4 +16,46 @@
 
 .card-text h3, .card-text h1 {
   margin: 0 0 0 15px;
+}
+
+.selection-container {
+  margin: 1% 35%;
+  border: 5px solid gray;
+  border-radius: 10px;
+  display: flex;
+  height: 300px;
+  justify-content: space-between;
+  min-width: 500px;
+}
+
+.selection-stats {
+  display: grid;
+  grid-template-columns: 125px 125px;
+  border-left: 5px solid grey;
+  width: auto;
+  float: right;
+}
+
+.selection-stats h1 {
+  display: flex;
+  margin: 4px 0px;
+}
+
+.selection-text h1 {
+  margin: 0px 0px;
+  font-size: 33px;
+}
+
+.selection-text h4 {
+  margin-top: 0px;
+  font-size: 20px;
+}
+
+#selection-image {
+  height: 200px;
+}
+
+img#card {
+  height: 75px;
+  cursor: pointer;
 }
