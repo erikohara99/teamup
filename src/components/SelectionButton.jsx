@@ -2,10 +2,12 @@ import React from 'react';
 
 const SelectionButton = (props) => {
 
-    const {text, onSelectChoice} = props;
+    const {text, active, onSelectChoice} = props;
+
+    const classes = "selection-button" + (text === active ? " button-active" : "");
 
     return ( 
-        <div className="selection-button" onClick={() => onSelectChoice(text)}>{text}</div>
+        <div className={classes} onClick={() => onSelectChoice(text)}>{text}</div>
      );
 }
  

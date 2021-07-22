@@ -83,6 +83,10 @@
   margin-left: 25px;
 }
 
+.button-active {
+  background-color: grey;
+}
+
 img#card {
   height: 75px;
   cursor: pointer;
