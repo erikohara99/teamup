@@ -3,10 +3,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ChampList from './components/ChampList';
 import Selection from './components/Selection';
+import ItemList from './components/ItemList';
+import SelectionButtonList from './components/SelectionButtonList';
 
 class App extends Component {
   state = { 
     champs: [],
+    items: [],
+    list: "Champions",
     current: {
       name: "",
       partype: "",
@@ -17,10 +21,14 @@ class App extends Component {
  }
 
   async componentDidMount() {
-      const request = await axios.get('http://localhost:3000/api/league/champions');
-      const champs = Object.values(request.data.data);
+      const champs = await axios.get('http://localhost:3000/api/league/champions');
+      const items = await axios.get('http://localhost:3000/api/league/items');
+
+      const champList = Object.values(champs.data.data);
+      const itemList = Object.values(items.data.data);
       
-      this.setState({champs});
+      this.setState({champs: champList});
+      this.setState({items: itemList});
   }
 
   handleSelect = (champ) => {
@@ -37,11 +45,18 @@ class App extends Component {
     this.setState({current: selection});
   }
 
+  handleSelectChoice = (text) => {
+    this.setState({list: text});
+  }
+
   render() { 
       return ( 
         <React.Fragment>
             <Selection champ={this.state.current} />
-            <ChampList champs={this.state.champs} onSelect={this.handleSelect}/>
+            <SelectionButtonList active={this.state.list} onSelectChoice = {this.handleSelectChoice}/>
+            {this.state.list === "Champions" ?
+              <ChampList champs={this.state.champs} onSelect={this.handleSelect}/>
+              : <ItemList items={this.state.items}/>}
         </React.Fragment>
       );
   }

@@ -2,6 +2,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, 75px);
   justify-content: center;
+  border: 5px solid gray;
+  padding: 10px 10px;
+  margin: -5px 25px;
 }
 
 .card-champ {
@@ -53,6 +56,31 @@
 
 #selection-image {
   height: 200px;
+}
+
+.selection-button {
+  border: 5px solid grey;
+  padding: 15px 10px;
+  cursor: pointer;
+  text-align: center;
+  margin-right: 10px;
+  font-weight: bold;
+  transition: 0.15s ease;
+  font-size: 20px;
+}
+
+.selection-button:hover {
+  background-color: lightgrey;
+}
+
+.selection-button:active {
+  background-color: grey;
+}
+
+#selection-button-container {
+  display: grid;
+  grid-template-columns: 200px 200px;
+  margin-left: 25px;
 }
 
 img#card {
