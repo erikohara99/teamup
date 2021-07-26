@@ -35,31 +35,57 @@ class App extends Component {
 
   handleSelectChamp = (champ) => {
     var selection = this.state.currentChamp;
+    var items = this.state.currentItems;
+
+    if(selection.name === champ.name) return null;
 
     selection.name = champ.name;
     selection.partype = champ.partype;
     selection.stats = champ.stats;
     selection.stats.abilityhaste = 0;
     selection.stats.abilitypower = 0;
+    selection.stats.attackspeedmod = 0;
     selection.image = champ.image.full;
     selection.title = champ.title;
 
-    this.setState({currentChamp: selection});
+    this.setState({currentChamp: selection, currentItems: []});
   }
 
-  handleSelectItem = (item) => {
+  handleItemAdd = (item) => {
+    var selection = this.state.currentChamp;
     var items = this.state.currentItems;
 
-    if(items.length >= 6) return null;
+    if(items.length >= 6 || items.indexOf(item) != -1) return null;
     items.push(item);
 
-    this.setState({currentItems: items});
+    selection.stats.attackdamage += item.stats.FlatPhysicalDamageMod || 0;
+    selection.stats.abilitypower += item.stats.FlatMagicDamageMod || 0;
+    selection.stats.armor += item.stats.FlatArmorMod || 0;
+    selection.stats.spellblock += item.stats.FlatSpellBlockMod || 0;
+    selection.stats.attackspeedmod += item.stats.PercentAttackSpeedMod || 0;
+    // selection.stats.attackdamage += item.stats.FlatPhysicalDamageMod || 0;
+    selection.stats.crit += (item.stats.FlatCritChanceMod * 100) || 0;
+    selection.stats.movespeed += item.stats.FlatMovementSpeedMod || 0;
+
+    this.setState({currentItems: items, currentChamp: selection});
   }
 
   handleItemRemove = (item) => {
+    var selection = this.state.currentChamp;
     var items = this.state.currentItems;
+
+    selection.stats.attackdamage -= item.stats.FlatPhysicalDamageMod || 0;
+    selection.stats.abilitypower -= item.stats.FlatMagicDamageMod || 0;
+    selection.stats.armor -= item.stats.FlatArmorMod || 0;
+    selection.stats.spellblock -= item.stats.FlatSpellBlockMod || 0;
+    selection.stats.attackspeedmod -= item.stats.PercentAttackSpeedMod || 0;
+    // selection.stats.attackdamage -= item.stats.FlatPhysicalDamageMod || 0;
+    selection.stats.crit -= (item.stats.FlatCritChanceMod * 100) || 0;
+    selection.stats.movespeed -= item.stats.FlatMovementSpeedMod || 0;
+
     var index = items.indexOf(item);
     items.splice(index, 1);
+
 
     this.setState({currentItems: items});
   }
@@ -80,7 +106,7 @@ class App extends Component {
           <SelectionButtonList active={this.state.list} onSelectChoice = {this.handleSelectChoice}/>
           {this.state.list === "Champions" ?
             <ChampList champs={this.state.champs} onSelect={this.handleSelectChamp}/>
-            : <ItemList items={this.state.items} onSelect={this.handleSelectItem}/>}
+            : <ItemList items={this.state.items} onSelect={this.handleItemAdd}/>}
 
         </React.Fragment>
       );
