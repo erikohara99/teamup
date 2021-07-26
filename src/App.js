@@ -51,9 +51,15 @@ class App extends Component {
     var items = this.state.currentItems;
 
     if(items.length >= 6) return null;
-
     items.push(item);
-    console.log(items);
+
+    this.setState({currentItems: items});
+  }
+
+  handleItemRemove = (item) => {
+    var items = this.state.currentItems;
+    var index = items.indexOf(item);
+    items.splice(index, 1);
 
     this.setState({currentItems: items});
   }
@@ -65,10 +71,10 @@ class App extends Component {
   render() { 
       return ( 
         <React.Fragment>
-          
+
           <div className="selection-boxes-container">
             <SelectionBox champ={this.state.currentChamp} />
-            <ItemBox items={this.state.currentItems} />
+            <ItemBox items={this.state.currentItems} onSelect={this.handleItemRemove} />
           </div>
 
           <SelectionButtonList active={this.state.list} onSelectChoice = {this.handleSelectChoice}/>
