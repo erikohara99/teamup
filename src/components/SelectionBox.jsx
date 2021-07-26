@@ -7,7 +7,7 @@ class Selection extends Component {
         const image = this.props.champ.image === "" ? null : <img id="selection-image" src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/champion/${this.props.champ.image}`}></img>
 
         return ( 
-            <div className="selection-container">
+            <div className="selection-container sc-champ">
                 <div className="selection-text">
                     {image}
                     <h1>{this.props.champ.name}</h1>

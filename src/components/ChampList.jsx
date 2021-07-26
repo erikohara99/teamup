@@ -9,7 +9,7 @@ const ChampList = (props) => {
             {props.champs.map(champion => {
 
                 return(
-                    <img id="card" src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/champion/${champion.image.full}`} onClick={() => {onSelect(champion)}}></img>
+                    <img className="hover" id="card" src={`http://ddragon.leagueoflegends.com/cdn/11.14.1/img/champion/${champion.image.full}`} onClick={() => {onSelect(champion)}}></img>
                 );
             })}
         </div>
