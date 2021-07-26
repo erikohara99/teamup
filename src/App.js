@@ -2,22 +2,24 @@ import './App.css';
 import React, { Component } from 'react';
 import axios from 'axios';
 import ChampList from './components/ChampList';
-import Selection from './components/Selection';
+import SelectionBox from './components/SelectionBox';
 import ItemList from './components/ItemList';
 import SelectionButtonList from './components/SelectionButtonList';
+import ItemBox from './components/ItemBox';
 
 class App extends Component {
   state = { 
     champs: [],
     items: [],
     list: "Champions",
-    current: {
+    currentChamp: {
       name: "",
       partype: "",
       stats: {},
       image: "",
       title: ""
-    }
+    },
+    currentItems: []
  }
 
   async componentDidMount() {
@@ -31,8 +33,8 @@ class App extends Component {
       this.setState({items: itemList});
   }
 
-  handleSelect = (champ) => {
-    var selection = this.state.current;
+  handleSelectChamp = (champ) => {
+    var selection = this.state.currentChamp;
 
     selection.name = champ.name;
     selection.partype = champ.partype;
@@ -42,7 +44,24 @@ class App extends Component {
     selection.image = champ.image.full;
     selection.title = champ.title;
 
-    this.setState({current: selection});
+    this.setState({currentChamp: selection});
+  }
+
+  handleSelectItem = (item) => {
+    var items = this.state.currentItems;
+
+    if(items.length >= 6) return null;
+    items.push(item);
+
+    this.setState({currentItems: items});
+  }
+
+  handleItemRemove = (item) => {
+    var items = this.state.currentItems;
+    var index = items.indexOf(item);
+    items.splice(index, 1);
+
+    this.setState({currentItems: items});
   }
 
   handleSelectChoice = (text) => {
@@ -52,11 +71,17 @@ class App extends Component {
   render() { 
       return ( 
         <React.Fragment>
-            <Selection champ={this.state.current} />
-            <SelectionButtonList active={this.state.list} onSelectChoice = {this.handleSelectChoice}/>
-            {this.state.list === "Champions" ?
-              <ChampList champs={this.state.champs} onSelect={this.handleSelect}/>
-              : <ItemList items={this.state.items}/>}
+
+          <div className="selection-boxes-container">
+            <SelectionBox champ={this.state.currentChamp} />
+            <ItemBox items={this.state.currentItems} onSelect={this.handleItemRemove} />
+          </div>
+
+          <SelectionButtonList active={this.state.list} onSelectChoice = {this.handleSelectChoice}/>
+          {this.state.list === "Champions" ?
+            <ChampList champs={this.state.champs} onSelect={this.handleSelectChamp}/>
+            : <ItemList items={this.state.items} onSelect={this.handleSelectItem}/>}
+
         </React.Fragment>
       );
   }

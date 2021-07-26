@@ -21,14 +21,39 @@
   margin: 0 0 0 15px;
 }
 
+.selection-boxes-container {
+  display: flex;
+  justify-content: center;
+}
+
+.sc-champ {
+  min-width: 500px;
+  justify-content: space-between;
+}
+
+.sc-item {
+  align-items: center;
+}
+
+.hover {
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.hover:hover {
+  opacity: 60%;
+}
+
+.hover:active {
+  opacity: 40%;
+}
+
 .selection-container {
-  margin: 1% 35%;
+  margin: 1% 1%;
   border: 5px solid gray;
   border-radius: 10px;
   display: flex;
   height: 300px;
-  justify-content: space-between;
-  min-width: 500px;
 }
 
 .selection-stats {
@@ -56,6 +81,19 @@
 
 #selection-image {
   height: 200px;
+}
+
+.selection-items {
+  display: grid;
+  grid-template-columns: 90px 90px;
+  grid-template-rows: 90px 90px 90px;
+  grid-gap: 10px;
+  margin: 10px 10px;
+}
+
+.selection-items > img {
+  height: 90px;
+  width: 90px;
 }
 
 .selection-button {
