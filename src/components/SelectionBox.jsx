@@ -19,7 +19,7 @@ class Selection extends Component {
                     <h1>{champ.stats.abilitypower}</h1>
                     <h1>{champ.stats.armor}</h1>
                     <h1>{champ.stats.spellblock}</h1>
-                    <h1>{(champ.stats.attackspeed * (1 + champ.stats.attackspeedmod)).toFixed(3)}</h1>
+                    <h1>{champ.stats.attackspeed === undefined ? "" : (champ.stats.attackspeed * (1 + champ.stats.attackspeedmod)).toFixed(3)}</h1>
                     <h1>{champ.stats.abilityhaste}</h1>
                     <h1>{champ.stats.crit}</h1>
                     <h1>{champ.stats.movespeed}</h1>

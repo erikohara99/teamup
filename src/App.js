@@ -6,6 +6,7 @@ import SelectionBox from './components/SelectionBox';
 import ItemList from './components/ItemList';
 import SelectionButtonList from './components/SelectionButtonList';
 import ItemBox from './components/ItemBox';
+import Header from './components/Header';
 
 class App extends Component {
   state = { 
@@ -97,7 +98,7 @@ class App extends Component {
   render() { 
       return ( 
         <React.Fragment>
-
+          <Header />
           <div className="selection-boxes-container">
             <SelectionBox champ={this.state.currentChamp} />
             <ItemBox items={this.state.currentItems} onSelect={this.handleItemRemove} />
